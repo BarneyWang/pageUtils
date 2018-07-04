@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="me.heng.mapper.PageInfoMapper">
+	<resultMap id="BaseResultMap"
+		type="me.heng.model.PageInfo">
+		<result column="pageSize" jdbcType="INTEGER"  javaType="java.lang.Integer" property="pageSize" />
+		<result column="currentPage" jdbcType="INTEGER" javaType="java.lang.Integer" property="currentPage" />
+		<result column="totalPage" jdbcType="INTEGER" javaType="java.lang.Integer" property="totalPage" />
+		<result column="totalItems" jdbcType="INTEGER" javaType="java.lang.Integer" property="totalItems" />		
+	</resultMap>
+	<sql id="Base_Column_List">
+		pageSize,currentPage,totalPage,totalItems,tableName,orderClumn
+	</sql>
+	<select id="selectTotalInfo" parameterType="com.aliyun.buildWebSite.processEngine.common.model.PageInfo"
+		resultMap="BaseResultMap">
+			SELECT 
+				${pageSize} as pageSize,
+			    ${currentPage} as  currentPage,
+				CEILING((a.totalItemes / ${pageSize})) AS totalPage,
+			    a.totalItemes as totalItems,
+			    (${currentPage}-1) * ${pageSize}
+			FROM
+			    (SELECT 
+			        COUNT(1) AS totalItemes
+			    FROM
+			        ${tableName}) a
+	</select>
+	
+	<select id="selectPageItemPrimaryClumnValues" parameterType="com.aliyun.buildWebSite.processEngine.common.model.PageInfo"
+	resultOrdered="true" resultType="java.lang.String">
+			select ${primaryClumn} as pkcv from ${tableName} a order by a.${orderClumn} limit ${beginIndex},${pageSize}
+	</select>
+	
+	
+</mapper>
