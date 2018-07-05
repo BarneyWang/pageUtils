@@ -44,6 +44,10 @@ public class PageInfo {
      */
     private String primaryClumn;
 
+    /**
+     *  查询条件
+     *  遍历的对象是Map.Entry时，index代表对应的key，item代表对应的value
+     */
     private Map<String, Object> columnCondition;
 
     /**
