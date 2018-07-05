@@ -31,6 +31,21 @@
 	resultOrdered="true" resultType="java.lang.String">
 			select ${primaryClumn} as pkcv from ${tableName} a order by a.${orderClumn} limit ${beginIndex},${pageSize}
 	</select>
-	
+
+	<!-- map的key作为查询条件的key value作为查询的值 -->
+	<select id="selectPageItemPrimaryClumnValuesOrderByColumn" parameterType="com.aliyun.buildWebSite.processEngine.common.model.PageInfo"
+			resultOrdered="true" resultType="java.lang.String">
+
+		select ${primaryClumn} as pkcv from ${tableName} a
+
+		<where>
+			<if test="columnCondition !=null">
+				<foreach collection="columnCondition" index="key" item="value">
+					AND #{key} = #{value}
+				</foreach>
+			</if>
+		</where>
+		order by a.${orderClumn} limit ${beginIndex},${pageSize}
+	</select>
 	
 </mapper>

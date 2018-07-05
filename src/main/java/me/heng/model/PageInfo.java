@@ -1,5 +1,7 @@
 package me.heng.model;
 
+import java.util.Map;
+
 /**
  * AUTHOR: wangdi
  * DATE: 04/07/2018
@@ -41,6 +43,8 @@ public class PageInfo {
      * 表内能唯一标识记录的字段,一般配置为表的唯一id
      */
     private String primaryClumn;
+
+    private Map<String, Object> columnCondition;
 
     /**
      * 排序方式
@@ -124,5 +128,13 @@ public class PageInfo {
 
     public void setPrimaryClumn(String primaryClumn) {
         this.primaryClumn = primaryClumn;
+    }
+
+    public Map<String, Object> getColumnCondition() {
+        return columnCondition;
+    }
+
+    public void setColumnCondition(Map<String, Object> columnCondition) {
+        this.columnCondition = columnCondition;
     }
 }
